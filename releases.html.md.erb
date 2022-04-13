@@ -1,0 +1,779 @@
+---
+title: VMware Tanzu RabbitMQ for VMs Release Notes
+owner: London Services
+---
+
+<%= partial vars.path_to_partials + '/rabbitmq/jumpgrade-2.0' %>
+
+<%= partial vars.path_to_partials + '/upgrade-planner' %>
+
+## <a id="1-21-7"></a> v1.21.7
+
+**Release Date**: August 27, 2021
+
+### Resolved Issues
+
+This release has the following fix:
+
+* **Queues with per-message TTL failing to recover indexes after a restart:**<br>
+  This release sets the `origin` field to `p-rabbitmq` for metrics in the Loggregator subsystem and
+  upgrades RabbitMQ to v3.8.21.<br>
+  These changes enable queues with per-message TTL to recover indexes after a restart.
+  For more information, see [issue 3272](https://github.com/rabbitmq/rabbitmq-server/discussions/3272) in GitHub.
+
+### Known Issues
+
+This release has the following issue:
+
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice"> <th>Component</th> <th>Version</th>   <tr>
+    <td><%= vars.app_runtime_full %></td>
+    <td>2.7.x, 2.8.x, 2.9.x, 2.10.x, 2.11.x</td>
+  </tr>
+  <tr>
+    <td>Erlang</td>
+    <td>23.3.4.5</td>
+  </tr>
+  <tr>
+    <td>HAProxy</td>
+    <td>1.8.30</td>
+  </tr>
+  <tr>
+    <td>OSS RabbitMQ*</td>
+    <td>3.8.21</td>
+  </tr>
+  <tr>
+    <td>Stemcell</td>
+    <td>621.x</td>
+  </tr>
+  <tr>
+    <td>bpm</td>
+    <td>1.1.13</td>
+  </tr>
+  <tr>
+    <td>cf-cli</td>
+    <td>1.32.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq</td>
+    <td>385.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-multitenant-broker</td>
+    <td>100.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-smoke-tests</td>
+    <td>105.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-service-gateway</td>
+    <td>53.0.0</td>
+  </tr>
+  <tr>
+    <td>loggregator-agent</td>
+    <td>3.21.5</td>
+  </tr>
+  <tr>
+    <td>on-demand-service-broker</td>
+    <td>0.42.1</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-metrics</td>
+    <td>61.0.0</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-on-demand-adapter</td>
+    <td>184.0.0</td>
+  </tr>
+  <tr>
+    <td>routing</td>
+    <td>0.221.0</td>
+  </tr>
+  <tr>
+    <td>service-metrics</td>
+    <td>1.12.5</td>
+  </tr>
+</table>
+
+<sup>*</sup> For more information, see the <a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.21">v3.8.21</a> GitHub documentation.
+
+
+## <a id="1-21-6"></a> v1.21.6
+
+**Release Date**: July 14, 2021
+
+### Maintenance Changes
+
+Maintenance change in this release:
+
+* **Updated RabbitMQ to v3.8.18 and Erlang to v24.0.2** For more information, see
+[RabbitMQ 3.8.18](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.18) in GitHub.
+
+### Resolved Issues
+
+This release has the following fixes:
+
+* **Smoke Tests:** This version fixes an issue that caused the smoke tests to fail with a buildpack error on
+the latest <%= vars.product_short %> versions.
+* **Grafana Dashboards for On-Demand instances:** This version fixes an issue which caused Grafana dashboards for on-demand instances to fail at rendering.
+
+### Known Issues
+
+This release has the following issue:
+
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
+
+* **Duplicated RabbitMQ server metrics when both the Healthwatch Exporter for TAS and the
+Healthwatch tile are installed:**
+When using v2 of the Healthwatch tile, installing the Healthwatch Exporter for TAS along with the
+Healthwatch tile causes duplicated metrics.
+This is because Heathwatch scrapes the metrics from both the Prometheus port of the RabbitMQ service
+instance and from the Loggregator system of TAS.
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice"> <th>Component</th> <th>Version</th>   <tr>
+    <td>Erlang</td>
+    <td>24.0.2</td>
+  </tr>
+  <tr>
+    <td>HAProxy</td>
+    <td>1.8.30</td>
+  </tr>
+  <tr>
+    <td>OSS RabbitMQ*</td>
+    <td>3.8.18</td>
+  </tr>
+  <tr>
+    <td>Stemcell</td>
+    <td>621.x</td>
+  </tr>
+  <tr>
+    <td><%= vars.app_runtime_full %></td>
+    <td>2.7.x, 2.8.x, 2.9.x, 2.10.x</td>
+  </tr>
+  <tr>
+    <td>bpm</td>
+    <td>1.1.12</td>
+  </tr>
+  <tr>
+    <td>cf-cli</td>
+    <td>1.32.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq</td>
+    <td>382.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-multitenant-broker</td>
+    <td>98.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-smoke-tests</td>
+    <td>103.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-service-gateway</td>
+    <td>51.0.0</td>
+  </tr>
+  <tr>
+    <td>loggregator-agent</td>
+    <td>3.21.5</td>
+  </tr>
+  <tr>
+    <td>on-demand-service-broker</td>
+    <td>0.42.0</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-metrics</td>
+    <td>59.0.0</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-on-demand-adapter</td>
+    <td>180.0.0</td>
+  </tr>
+  <tr>
+    <td>routing</td>
+    <td>0.216.0</td>
+  </tr>
+  <tr>
+    <td>service-metrics</td>
+    <td>1.12.5</td>
+  </tr>
+</table>
+
+<sup>*</sup>For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.18">v3.8.18</a> GitHub documentation.
+
+## <a id="1-21-4"></a> v1.21.4
+
+**Release Date**: May 26, 2021
+
+### Security Fixes
+
+This release includes the following security fix:
+
+* High [CVE-2021-30465](https://nvd.nist.gov/vuln/detail/CVE-2021-30465):
+runc v1.0.0-rc94 and earlier allows a container file system breakout through directory traversal.
+
+### Known Issues
+
+This release has the following known issues:
+
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice"> <th>Component</th> <th>Version</th>   <tr>
+    <td>Erlang</td>
+    <td>23.3.4</td>
+  </tr>
+  <tr>
+    <td>HAProxy</td>
+    <td>1.8.30</td>
+  </tr>
+  <tr>
+    <td>OSS RabbitMQ*</td>
+    <td>3.8.16</td>
+  </tr>
+  <tr>
+    <td>Stemcell</td>
+    <td>621.x</td>
+  </tr>
+  <tr>
+    <td><%= vars.app_runtime_full %></td>
+    <td>2.7.x, 2.8.x, 2.9.x, 2.10.x, 2.11.x</td>
+  </tr>
+  <tr>
+    <td>bpm</td>
+    <td>1.1.11</td>
+  </tr>
+  <tr>
+    <td>cf-cli</td>
+    <td>1.32.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq</td>
+    <td>375.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-multitenant-broker</td>
+    <td>95.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-smoke-tests</td>
+    <td>101.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-service-gateway</td>
+    <td>50.0.0</td>
+  </tr>
+  <tr>
+    <td>loggregator-agent</td>
+    <td>3.21.5</td>
+  </tr>
+  <tr>
+    <td>on-demand-service-broker</td>
+    <td>0.41.1</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-metrics</td>
+    <td>58.0.0</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-on-demand-adapter</td>
+    <td>176.0.0</td>
+  </tr>
+  <tr>
+    <td>routing</td>
+    <td>0.213.0</td>
+  </tr>
+  <tr>
+    <td>service-metrics</td>
+    <td>1.12.5</td>
+  </tr>
+</table>
+
+<sup>*</sup> For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.16">v3.8.16</a> GitHub documentation.
+
+## <a id="1-21-3"></a> v1.21.3
+
+**Release Date**: May 21, 2021
+
+### Maintenance Changes
+
+Maintenance change in this release:
+
+* **Updated RabbitMQ to v3.8.16:** For more information, see
+[RabbitMQ 3.8.16](https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.16) in GitHub.
+
+### Resolved Issues
+
+This release has the following fix:
+
+* **Compatible with Ruby buildpack v1.8.33 and later:** This version fixes the incompatibility
+  with Ruby buildpack issue found in <%= vars.product_short %> v1.21.2 and earlier.
+
+### Known Issues
+
+This release has the following issue:
+
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
+* **This release does not contain the fix to [CVE-2021-30465](https://nvd.nist.gov/vuln/detail/CVE-2021-30465):**
+VMware recommends upgrading to v1.21.4 or later.
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice"> <th>Component</th> <th>Version</th>   <tr>
+    <td>Erlang</td>
+    <td>23.3.2</td>
+  </tr>
+  <tr>
+    <td>HAProxy</td>
+    <td>1.8.30</td>
+  </tr>
+  <tr>
+    <td>OSS RabbitMQ<sup>*</sup></td>
+    <td>3.8.16</td>
+  </tr>
+  <tr>
+    <td>Stemcell</td>
+    <td>621.x</td>
+  </tr>
+  <tr>
+    <td><%= vars.app_runtime_full %></td>
+    <td>2.7.x, 2.8.x, 2.9.x, 2.10.x, 2.11.x</td>
+  </tr>
+  <tr>
+    <td>bpm</td>
+    <td>1.1.9</td>
+  </tr>
+  <tr>
+    <td>cf-cli</td>
+    <td>1.32.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq</td>
+    <td>372.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-multitenant-broker</td>
+    <td>94.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-smoke-tests</td>
+    <td>98.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-service-gateway</td>
+    <td>50.0.0</td>
+  </tr>
+  <tr>
+    <td>loggregator-agent</td>
+    <td>3.21.5</td>
+  </tr>
+  <tr>
+    <td>on-demand-service-broker</td>
+    <td>0.41.1</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-metrics</td>
+    <td>56.0.0</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-on-demand-adapter</td>
+    <td>175.0.0</td>
+  </tr>
+  <tr>
+    <td>routing</td>
+    <td>0.213.0</td>
+  </tr>
+  <tr>
+    <td>service-metrics</td>
+    <td>1.12.5</td>
+  </tr>
+</table>
+
+<sup>*</sup> For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.16">v3.8.16</a> GitHub
+documentation.
+
+## <a id="1-21-2"></a> v1.21.2
+
+**Release Date**: March 18, 2021
+
+### Resolved Issues
+
+This release has the following fixes:
+
+* **The direct reply-to feature is supported:**
+  For on-demand service instances, the direct reply-to feature is now supported.
+  For information about the direct reply-to feature, see the
+  [RabbitMQ documentation](https://www.rabbitmq.com/direct-reply-to.html).
+
+* **For the pre-provisioned offering, when TLS is configured, the service bindings show
+   the non-TLS AMQP connection credentials:**
+   In earlier releases, the service bindings did not show the non-TLS connection credentials
+   even though both TLS and non-TLS connections were allowed.
+
+    To allow only TLS connections, see [Configure TLS Support](install-config-pp.html#tls)
+    in _Installing and Configuring the Pre-Provisioned Service_.
+
+
+### Known Issues
+
+This release has the following issue:
+
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
+
+* **This release is incompatible with Ruby buildpack v1.8.33 and later:**
+   Upgrades to this version of <%= vars.product_short %> fail the smoke test errand.
+   This is fixed in v1.21.3.
+
+* **This release does not contain the fix to [CVE-2021-30465](https://nvd.nist.gov/vuln/detail/CVE-2021-30465):**
+VMware recommends upgrading to v1.21.4 or later.
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice">
+  <th>Component</th>
+  <th>Version</th>
+  <tr>
+    <td>Erlang</td>
+    <td>23.2.6</td>
+  </tr>
+  <tr>
+    <td>HAProxy</td>
+    <td>1.8.28</td>
+  </tr>
+  <tr>
+    <td>OSS RabbitMQ<sup>*</sup></td>
+    <td>3.8.12</td>
+  </tr>
+  <tr>
+    <td>Stemcell</td>
+    <td>621.x</td>
+  </tr>
+  <tr>
+    <td><%= vars.app_runtime_full%></td>
+    <td>2.7.x, 2.8.x, 2.9.x, 2.10.x, 2.11.x</td>
+  </tr>
+  <tr>
+    <td>bpm</td>
+    <td>1.1.9</td>
+  </tr>
+  <tr>
+    <td>cf-cli</td>
+    <td>1.32.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq</td>
+    <td>358.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-multitenant-broker</td>
+    <td>92.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-service-gateway</td>
+    <td>46.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-smoke-tests</td>
+    <td>91.0.0</td>
+  </tr>
+  <tr>
+    <td>loggregator-agent</td>
+    <td>3.21.5</td>
+  </tr>
+  <tr>
+    <td>on-demand-service-broker</td>
+    <td>0.40.0</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-metrics</td>
+    <td>52.0.0</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-on-demand-adapter</td>
+    <td>171.0.0</td>
+  </tr>
+  <tr>
+    <td>routing</td>
+    <td>0.211.0</td>
+  </tr>
+  <tr>
+    <td>service-metrics</td>
+    <td>1.12.5</td>
+  </tr>
+</table>
+
+<sup>*</sup> For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.14">v3.8.14</a> GitHub
+documentation.
+
+## <a id="1-21-1"></a> v1.21.1
+
+**Release Date**: March 4, 2021
+
+### Features
+
+New features and changes in this release:
+
+* **Support for TLS v1.3:** Both the pre-provisioned and on-demand offerings now support TLS v1.3 in
+RabbitMQ. TLS v1.3 is incompatible with TLS v1.1 and TLS v1.0 so they must not be enabled at the
+same time. For more information about configuring the supported TLS versions, see
+[Configure Security](./install-config.html#security) for on-demand and
+[Configure TLS Support](./install-config-pp.html#tls) for pre-provisioned.
+
+### Known Issues
+
+This release has the following issues:
+
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-direct-reply-to" %>
+* **This release is incompatible with Ruby buildpack v1.8.33 and later:**
+   Upgrades to this version of <%= vars.product_short %> fail the smoke test errand.
+   This is fixed in v1.21.3.
+* **This release does not contain the fix to [CVE-2021-30465](https://nvd.nist.gov/vuln/detail/CVE-2021-30465):**
+VMware recommends upgrading to v1.21.4 or later.
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice">
+  <th>Component</th>
+  <th>Version</th>
+  <tr>
+    <td>Erlang</td>
+    <td>23.2.5</td>
+  </tr>
+  <tr>
+    <td>HAProxy</td>
+    <td>1.8.28</td>
+  </tr>
+  <tr>
+    <td>OSS RabbitMQ<sup>*</sup></td>
+    <td>3.8.12</td>
+  </tr>
+  <tr>
+    <td>Stemcell</td>
+    <td>621.x</td>
+  </tr>
+  <tr>
+    <td><%= vars.app_runtime_full%></td>
+    <td>2.7.x, 2.8.x, 2.9.x, 2.10.x, 2.11.x</td>
+  </tr>
+  <tr>
+    <td>bpm</td>
+    <td>1.1.9</td>
+  </tr>
+  <tr>
+    <td>cf-cli</td>
+    <td>1.32.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq</td>
+    <td>354.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-multitenant-broker</td>
+    <td>91.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-service-gateway</td>
+    <td>46.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-smoke-tests</td>
+    <td>91.0.0</td>
+  </tr>
+  <tr>
+    <td>loggregator-agent</td>
+    <td>3.21.5</td>
+  </tr>
+  <tr>
+    <td>on-demand-service-broker</td>
+    <td>0.40.0</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-metrics</td>
+    <td>52.0.0</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-on-demand-adapter</td>
+    <td>170.0.0</td>
+  </tr>
+  <tr>
+    <td>routing</td>
+    <td>0.211.0</td>
+  </tr>
+  <tr>
+    <td>service-metrics</td>
+    <td>1.12.5</td>
+  </tr>
+</table>
+
+<sup>*</sup> For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.12">v3.8.12</a> GitHub
+documentation.
+
+## <a id="1-21-0"></a> v1.21.0
+
+**Release Date**: December 14, 2020
+
+### Features
+
+New features and changes in this release:
+
+* **RabbitMQ Web STOMP plugin for on-demand instances:**
+You can enable this plugin for on-demand instances including instances with TLS and service-gateway.
+
+* **OAuth for apps:**
+Apps can now authenticate with RabbitMQ using the OAuth client flow.
+For more information, see [Enabling OAuth for Apps](./enable-oauth-for-apps.html).
+
+* **Option to enforce OAuth for on-demand instances:**
+When OAuth is enforced, the tile does not return RabbitMQ user credentials
+in the binding, making OAuth the only source for application authentication and authorization.
+There is also an option to enable OAuth without enforcing it.
+This still returns RabbitMQ user credentials in the binding while also having the OAuth plugin
+enabled for the instance.
+For more information, see [Enabling OAuth for RabbitMQ](./enable-oauth-for-rabbitmq.html).
+
+* **Includes the UAA URL in service keys and bindings when OAuth is enabled:**
+This helps apps to fetch the OAuth token from UAA.
+For more information, see [Enabling OAuth for RabbitMQ](./enable-oauth-for-rabbitmq.html).
+
+* **Option to limit the TLS versions enabled for on-demand instances:**
+<%= vars.product_short %> v1.21.0 supports TLS v1.0, v1.1, and v1.2 (default).
+Additionally, you can now select the TLS versions to enable in RabbitMQ.
+This disables the other TLS versions.<br>
+To configure TLS, follow the procedure in [Configure Security](./install-config.html#security).<br>
+For more information about disabling TLS versions, see the
+[RabbitMQ documentation](https://www.rabbitmq.com/ssl.html#tls-versions-why-limit).
+
+* **Option to add VM extensions to on-demand instances:**
+You can provide a list of VM extensions to add to on-demand service instances.
+This feature enables you to exclude VMs hosting on-demand service instances from being
+dynamically provisioned by an underlying IaaS, among other capabilities.
+For more information, see [Configure Global Settings](./install-config.html#global)
+in _Installing and Configuring the On-Demand Service_.
+
+* **Improved internal security for service-gateway:**
+For delete operations, the on-demand service broker now communicates with routing components over
+mutual TLS.
+
+### Known Issues
+
+This release has the following issues:
+
+<%= partial vars.path_to_partials + "/rabbitmq/erlang-ki" %>
+<%= partial vars.path_to_partials + "/rabbitmq/ki-direct-reply-to" %>
+* **This release is incompatible with Ruby buildpack v1.8.33 and later:**
+   Upgrades to this version of <%= vars.product_short %> fail the smoke test errand.
+   This is fixed in v1.21.3.
+* **This release does not contain the fix to [CVE-2021-30465](https://nvd.nist.gov/vuln/detail/CVE-2021-30465):**
+VMware recommends upgrading to v1.21.4 or later.
+
+### Compatibility
+
+The following components are compatible with this release:
+
+<table class="nice">
+  <th>Component</th>
+  <th>Version</th>
+  <tr>
+    <td>Erlang</td>
+    <td>23.1.4</td>
+  </tr>
+  <tr>
+    <td>HAProxy</td>
+    <td>1.8.27</td>
+  </tr>
+  <tr>
+    <td>OSS RabbitMQ<sup>*</sup></td>
+    <td>3.8.9</td>
+  </tr>
+  <tr>
+    <td>Stemcell</td>
+    <td>621.x</td>
+  </tr>
+  <tr>
+    <td><%= vars.app_runtime_full%></td>
+    <td>2.7.x, 2.8.x, 2.9.x, 2.10.x, 2.11.x</td>
+  </tr>
+  <tr>
+    <td>bpm</td>
+    <td>1.1.9</td>
+  </tr>
+  <tr>
+    <td>cf-cli</td>
+    <td>1.31.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq</td>
+    <td>343.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-multitenant-broker</td>
+    <td>85.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-service-gateway</td>
+    <td>28.0.0</td>
+  </tr>
+  <tr>
+    <td>cf-rabbitmq-smoke-tests</td>
+    <td>84.0.0</td>
+  </tr>
+  <tr>
+    <td>loggregator-agent</td>
+    <td>3.21.5</td>
+  </tr>
+  <tr>
+    <td>on-demand-service-broker</td>
+    <td>0.40.0</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-metrics</td>
+    <td>40.0.0</td>
+  </tr>
+  <tr>
+    <td>rabbitmq-on-demand-adapter</td>
+    <td>162.0.0</td>
+  </tr>
+  <tr>
+    <td>routing</td>
+    <td>0.209.0</td>
+  </tr>
+  <tr>
+    <td>service-metrics</td>
+    <td>1.12.5</td>
+  </tr>
+</table>
+
+<sup>*</sup> For more information, see the
+<a href="https://github.com/rabbitmq/rabbitmq-server/releases/tag/v3.8.9">v3.8.9</a> GitHub
+documentation.
+
+## <a id="view"></a> View Release Notes for Another Version
+
+To view the release notes for another product version, select the version from the dropdown at the
+top of this page.
